@@ -57,30 +57,6 @@ def enlarge_coordinates(vector_2d,rectangle):
 
     return tmp
 
-def shrink_coordinates(vector_2d,rectangle):
-
-    tmp = rectangle.copy()
-
-    if vector_2d[0]>tmp[0]:
-      tmp[0] = vector_2d[0]
-
-    if vector_2d[0]<tmp[1]:
-      tmp[1] = vector_2d[0]
-
-    if vector_2d[1]>tmp[2]:
-      tmp[2] = vector_2d[1]
-
-    if vector_2d[1]<tmp[3]:
-      tmp[3] = vector_2d[1]
-
-    return tmp
-
-def is_including(rect_1,rect_2):
-  if rect_1[0] <= rect_2[0] and rect_1[1]>=rect_2[1] and rect_1[2]<= rect_2[2] and rect_1[3]>=rect_2[3]:
-    return True
-  else:
-    return False
-
 def most_specific(feature,label):
     for i,val in enumerate(label):
         if val== 1:
@@ -98,7 +74,7 @@ def most_specific(feature,label):
     return rectangle_coords
 
 most_specific_hypothesis_coordinates = most_specific(features,labels)
-print('\nCoordinates of rectange describing most specific hypothesis based on input data is: ')
+print('\nCoordinates of rectange (x1,x2,y1,y2) describing Most Specific Hypothesis S based on input data is: ')
 print(most_specific_hypothesis_coordinates)
 print('\n')
 
@@ -109,11 +85,9 @@ def most_general(feature,label,most_specific_hypothesis):
 
     for i,val in enumerate(label):
         if val == 0:
-          #print("###")
-          #print(rectangle_coords)
+
           if not is_in_rectangle(feature[i],rectangle_coords):
             first_hypothesis = feature[i].copy()
-            #print(first_hypothesis)
             break
 
     rectangle_coords = enlarge_coordinates(first_hypothesis,rectangle_coords)
@@ -127,6 +101,6 @@ def most_general(feature,label,most_specific_hypothesis):
     return rectangle_coords
 
 most_general_hypothesis_coordinates = most_general(features,labels,most_specific_hypothesis_coordinates)
-print('\nCoordinates of rectange describing most general hypothesis based on input data is: ')
+print('\nCoordinates of rectange (x1,x2,y1,y2) describing Most General Hypothesis G based on input data is: ')
 print(most_general_hypothesis_coordinates)
 print('\n')
